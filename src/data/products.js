@@ -1,0 +1,78 @@
+const STORE_BASE_URL = "https://www.trendforge.com.br/";
+
+const products = [
+  {
+    id: 1,
+    name: "OVERSIZED TEE BLACK",
+    price: "R$ 189",
+    image: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=800&q=80",
+    imageHover: "https://images.unsplash.com/photo-1618354691438-25bc04584c23?w=800&q=80",
+    tag: "NEW DROP",
+    link: `${STORE_BASE_URL}/produto-1`,
+  },
+  {
+    id: 2,
+    name: "SIGNATURE RED TEE",
+    price: "R$ 199",
+    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80",
+    imageHover: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&q=80",
+    tag: "NEW DROP",
+    link: `${STORE_BASE_URL}/produto-2`,
+  },
+  {
+    id: 3,
+    name: "ESSENTIAL HOODIE",
+    price: "R$ 349",
+    image: "https://images.unsplash.com/photo-1636170030727-11b73d53e1eb?w=800&q=80",
+    imageHover: "https://images.unsplash.com/photo-1635715226585-004fef5a55a4?w=800&q=80",
+    tag: "NEW DROP",
+    link: `${STORE_BASE_URL}/produto-3`,
+  },
+  {
+    id: 4,
+    name: "TACTICAL WINDBREAKER",
+    price: "R$ 499",
+    image: "https://images.unsplash.com/photo-1635715226585-004fef5a55a4?w=800&q=80",
+    imageHover: "https://images.unsplash.com/photo-1636170030727-11b73d53e1eb?w=800&q=80",
+    tag: "NEW DROP",
+    link: `${STORE_BASE_URL}/produto-4`,
+  },
+  {
+    id: 5,
+    name: "UTILITY CARGO PANTS",
+    price: "R$ 399",
+    image: "https://images.pexels.com/photos/5365647/pexels-photo-5365647.jpeg?auto=compress&cs=tinysrgb&w=800",
+    imageHover: "https://images.pexels.com/photos/3395708/pexels-photo-3395708.jpeg?auto=compress&cs=tinysrgb&w=800",
+    tag: "NEW DROP",
+    link: `${STORE_BASE_URL}/produto-5`,
+  },
+  {
+    id: 6,
+    name: "VINTAGE WASH HOODIE",
+    price: "R$ 369",
+    image: "https://images.unsplash.com/photo-1636170029620-73014ed8d0ab?w=800&q=80",
+    imageHover: "https://images.unsplash.com/photo-1647540977003-9a9e6f3b5fb9?w=800&q=80",
+    tag: "NEW DROP",
+    link: `${STORE_BASE_URL}/produto-6`,
+  },
+  {
+    id: 7,
+    name: "STREET OVERSIZED TEE",
+    price: "R$ 189",
+    image: "https://images.pexels.com/photos/3395708/pexels-photo-3395708.jpeg?auto=compress&cs=tinysrgb&w=800",
+    imageHover: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=800&q=80",
+    tag: "NEW DROP",
+    link: `${STORE_BASE_URL}/produto-7`,
+  },
+  {
+    id: 8,
+    name: "SIGNATURE SNAPBACK",
+    price: "R$ 149",
+    image: "https://images.unsplash.com/photo-1647540977003-9a9e6f3b5fb9?w=800&q=80",
+    imageHover: "https://images.unsplash.com/photo-1636170029620-73014ed8d0ab?w=800&q=80",
+    tag: "NEW DROP",
+    link: `${STORE_BASE_URL}/produto-8`,
+  },
+];
+
+export default products;
