@@ -452,7 +452,7 @@ text-brand-red
 mb-2
 "
 >
-Manifesto
+TREND FORGE
 </p>
 
 
@@ -470,9 +470,9 @@ leading-tight
 "
 >
 
-NOT FOR
+FORJANDO
 <br/>
-EVERYONE
+TENDÊNCIAS
 
 </h3>
 
