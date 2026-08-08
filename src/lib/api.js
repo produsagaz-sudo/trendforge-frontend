@@ -161,10 +161,10 @@ export const adminCreateProduct = (data) =>
   api.post("/products", data);
 
 export const adminUpdateProduct = (id, data) =>
-  api.put(`/products/${id}`, data);
+  api.put(`/admin/products/${id}`, data);
 
 export const adminDeleteProduct = (id) =>
-  api.delete(`/products/${id}`);
+  api.delete(`/admin/products/${id}`);
 
 export const adminGetCustomers = (params) =>
   api.get("/admin/customers", { params });
