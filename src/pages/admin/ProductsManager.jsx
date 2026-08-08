@@ -106,6 +106,32 @@ export default function ProductsManager() {
               <input type="number" placeholder="Preco Cartao" value={form.price_card} onChange={e => setForm({ ...form, price_card: e.target.value })} className="bg-zinc-800 border border-zinc-700 text-white px-3 py-2 text-sm" data-testid="product-form-price-card" />
             </div>
             <textarea placeholder="Descricao" value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} className="w-full bg-zinc-800 border border-zinc-700 text-white px-3 py-2 text-sm mb-4 h-20" />
+              {/* Tags */}
+<div className="mb-4">
+  <h3 className="text-xs font-bold text-zinc-400 uppercase mb-2">
+    Tags do Produto
+  </h3>
+
+  <input
+    type="text"
+    placeholder="Ex: oversized, streetwear, masculino"
+    value={form.tags.join(", ")}
+    onChange={e =>
+      setForm({
+        ...form,
+        tags: e.target.value
+          .split(",")
+          .map(tag => tag.trim())
+          .filter(Boolean)
+      })
+    }
+    className="w-full bg-zinc-800 border border-zinc-700 text-white px-3 py-2 text-sm"
+  />
+
+  <p className="text-zinc-600 text-[10px] mt-1">
+    Separe as tags por vírgula.
+  </p>
+</div>
 
             <div className="flex gap-4 mb-4">
               <label className="flex items-center gap-2 text-sm text-zinc-400"><input type="checkbox" checked={form.is_active} onChange={e => setForm({ ...form, is_active: e.target.checked })} /> Ativo</label>
