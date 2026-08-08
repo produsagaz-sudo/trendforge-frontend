@@ -515,9 +515,7 @@ export default function CheckoutPage() {
                           PIX
                         </p>
 
-                        <p className="text-xs text-[var(--text-secondary)]">
-                          Aprovacao instantanea - 10% de desconto
-                        </p>
+                        
                       </div>
                     </div>
 
@@ -548,9 +546,7 @@ export default function CheckoutPage() {
                           Cartao de Credito
                         </p>
 
-                        <p className="text-xs text-[var(--text-secondary)]">
-                          Ate 3x sem juros
-                        </p>
+                        
                       </div>
                     </div>
 
