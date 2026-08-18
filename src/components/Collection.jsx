@@ -21,17 +21,27 @@ function QuickBuyModal({ product, onClose, onAdded }) {
       onClose();
       return;
     }
-    if (!selectedSize) { setError("Selecione um tamanho"); return; }
+
+    if (!selectedSize) {
+      setError("Selecione um tamanho");
+      return;
+    }
+
     setLoading(true);
     setError("");
+
     try {
       await addToCart(product.id || product._id, selectedSize, 1);
       setAdded(true);
+
       if (onAdded) onAdded();
+
       setTimeout(() => onClose(), 1200);
     } catch (e) {
       setError(formatError(e.response?.data?.detail));
-    } finally { setLoading(false); }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -52,43 +62,76 @@ function QuickBuyModal({ product, onClose, onAdded }) {
       >
         {/* Product image */}
         <div className="relative aspect-[4/3] overflow-hidden">
-          <img src={product.images?.[0]?.url || product.image} alt={product.name} className="w-full h-full object-cover" />
-          <button onClick={onClose} className="absolute top-3 right-3 bg-black/50 text-white p-2 hover:bg-black/80 transition-colors" data-testid="quick-buy-close">
+          <img
+            src={product.images?.[0]?.url || product.image}
+            alt={product.name}
+            className="w-full h-full object-cover"
+          />
+
+          <button
+            onClick={onClose}
+            className="absolute top-3 right-3 bg-black/50 text-white p-2 hover:bg-black/80 transition-colors"
+            data-testid="quick-buy-close"
+          >
             <X size={16} />
           </button>
+
           {added && (
             <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
               <div className="text-center">
-                <Check size={40} className="mx-auto text-green-400 mb-2" />
-                <p className="text-white text-sm font-bold uppercase tracking-wider">Adicionado ao Carrinho!</p>
+                <Check
+                  size={40}
+                  className="mx-auto text-green-400 mb-2"
+                />
+                <p className="text-white text-sm font-bold uppercase tracking-wider">
+                  Adicionado ao Carrinho!
+                </p>
               </div>
             </div>
           )}
         </div>
 
         <div className="p-6">
-          <h3 className="font-heading text-lg font-black tracking-tighter text-[var(--text-primary)] uppercase">{product.name}</h3>
+          <h3 className="font-heading text-lg font-black tracking-tighter text-[var(--text-primary)] uppercase">
+            {product.name}
+          </h3>
+
           <div className="flex items-center gap-3 mt-2">
-            <span className="text-sm font-bold text-green-500">R$ {product.price_pix?.toFixed(2)} <span className="text-xs text-[var(--text-secondary)] font-normal">no PIX</span></span>
-            <span className="text-sm text-[var(--text-secondary)]">R$ {product.price_card?.toFixed(2)}</span>
+            <span className="text-sm font-bold text-green-500">
+              R$ {product.price_pix?.toFixed(2)}
+              <span className="text-xs text-[var(--text-secondary)] font-normal">
+                {" "}
+                no PIX
+              </span>
+            </span>
+
+            <span className="text-sm text-[var(--text-secondary)]">
+              R$ {product.price_card?.toFixed(2)}
+            </span>
           </div>
 
           {/* Size selection */}
           <div className="mt-4">
-            <p className="text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)] mb-2">Tamanho</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)] mb-2">
+              Tamanho
+            </p>
+
             <div className="flex gap-2">
               {sizes.map((v) => (
                 <button
                   key={v.size}
-                  onClick={() => { setSelectedSize(v.size); setError(""); }}
+                  onClick={() => {
+                    setSelectedSize(v.size);
+                    setError("");
+                  }}
                   disabled={v.stock <= 0}
                   data-testid={`size-select-${v.size}`}
                   className={`px-4 py-2 text-xs font-bold uppercase border transition-colors ${
                     selectedSize === v.size
                       ? "border-brand-red bg-brand-red text-white"
                       : v.stock <= 0
-                        ? "border-[var(--border-color)] text-[var(--text-secondary)] opacity-40 cursor-not-allowed line-through"
-                        : "border-[var(--border-color)] text-[var(--text-primary)] hover:border-brand-red"
+                      ? "border-[var(--border-color)] text-[var(--text-secondary)] opacity-40 cursor-not-allowed line-through"
+                      : "border-[var(--border-color)] text-[var(--text-primary)] hover:border-brand-red"
                   }`}
                 >
                   {v.size}
@@ -97,7 +140,14 @@ function QuickBuyModal({ product, onClose, onAdded }) {
             </div>
           </div>
 
-          {error && <p className="text-xs text-red-400 mt-2" data-testid="quick-buy-error">{error}</p>}
+          {error && (
+            <p
+              className="text-xs text-red-400 mt-2"
+              data-testid="quick-buy-error"
+            >
+              {error}
+            </p>
+          )}
 
           <button
             onClick={handleAddToCart}
@@ -105,7 +155,13 @@ function QuickBuyModal({ product, onClose, onAdded }) {
             className="w-full mt-4 bg-brand-red text-white py-3 text-xs font-bold uppercase tracking-[0.15em] hover:bg-white hover:text-[#0A0A0A] transition-colors disabled:opacity-50"
             data-testid="quick-buy-add-to-cart"
           >
-            {added ? "Adicionado!" : loading ? "..." : user ? "Adicionar ao Carrinho" : "Entrar para Comprar"}
+            {added
+              ? "Adicionado!"
+              : loading
+              ? "..."
+              : user
+              ? "Adicionar ao Carrinho"
+              : "Entrar para Comprar"}
           </button>
 
           <button
@@ -127,7 +183,8 @@ function ProductCard({ product, index, onQuickBuy }) {
   const [hovered, setHovered] = useState(false);
 
   const primaryImage = product.images?.[0]?.url || "";
-  const secondaryImage = product.images?.[1]?.url || primaryImage;
+  const secondaryImage =
+    product.images?.[1]?.url || primaryImage;
 
   return (
     <motion.div
@@ -148,7 +205,6 @@ function ProductCard({ product, index, onQuickBuy }) {
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-
         {/* IMAGEM */}
         <div className="relative overflow-hidden">
           <img
@@ -176,8 +232,8 @@ function ProductCard({ product, index, onQuickBuy }) {
         {/* NOME */}
         <div className="mt-3">
           <h3 className="text-sm font-bold uppercase tracking-wide text-[var(--text-primary)] h-5 overflow-hidden">
-  {product.name}
-</h3>
+            {product.name}
+          </h3>
 
           {/* PAGAMENTOS */}
           <div className="mt-2 space-y-1.5 min-h-[54px]">
@@ -222,41 +278,102 @@ function ProductCard({ product, index, onQuickBuy }) {
 
           </div>
         </div>
-
       </div>
     </motion.div>
   );
 }
+
 export default function Collection({ onCartUpdate }) {
   const headRef = useRef(null);
-  const headInView = useInView(headRef, { once: true, margin: "-80px" });
+  const headInView = useInView(headRef, {
+    once: true,
+    margin: "-80px",
+  });
+
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
+  // NOVO: controla o estado do carregamento
+  const [productsLoading, setProductsLoading] = useState(true);
+
+  // NOVO: controla erro definitivo
+  const [productsError, setProductsError] = useState(false);
+
   useEffect(() => {
-  let mounted = true;
+    let mounted = true;
 
-  const loadProducts = async () => {
-    try {
-      const response = await getProducts({ limit: 8 });
+    const loadProducts = async () => {
+      // Até 5 tentativas.
+      // Isso ajuda quando o Render está acordando depois do cold start.
+      const maxAttempts = 5;
 
-      if (mounted) {
-        setProducts(response.data.products || []);
+      // Esperas progressivas entre as tentativas.
+      const retryDelays = [0, 3000, 6000, 10000, 15000];
+
+      for (let attempt = 0; attempt < maxAttempts; attempt++) {
+        if (!mounted) return;
+
+        try {
+          if (retryDelays[attempt] > 0) {
+            await new Promise((resolve) =>
+              setTimeout(resolve, retryDelays[attempt])
+            );
+          }
+
+          if (!mounted) return;
+
+          console.log(
+            `Carregando produtos... tentativa ${attempt + 1}/${maxAttempts}`
+          );
+
+          const response = await getProducts({ limit: 8 });
+
+          if (!mounted) return;
+
+          const loadedProducts = response?.data?.products || [];
+
+          // Se recebeu os produtos corretamente, encerra tudo.
+          if (loadedProducts.length > 0) {
+            setProducts(loadedProducts);
+            setProductsLoading(false);
+            setProductsError(false);
+
+            console.log(
+              `Produtos carregados com sucesso: ${loadedProducts.length}`
+            );
+
+            return;
+          }
+
+          // Se a API respondeu, mas veio vazia, tenta novamente.
+          console.warn(
+            `API respondeu, mas não retornou produtos. Tentativa ${
+              attempt + 1
+            }/${maxAttempts}`
+          );
+        } catch (error) {
+          console.error(
+            `Erro ao carregar produtos - tentativa ${
+              attempt + 1
+            }/${maxAttempts}:`,
+            error
+          );
+        }
       }
-    } catch (error) {
-      console.error("Erro ao carregar produtos:", error);
 
+      // Só chega aqui se TODAS as tentativas falharem.
       if (mounted) {
+        setProductsLoading(false);
+        setProductsError(true);
         setProducts([]);
       }
-    }
-  };
+    };
 
-  loadProducts();
+    loadProducts();
 
-  return () => {
-    mounted = false;
-  };
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   return (
@@ -275,21 +392,50 @@ export default function Collection({ onCartUpdate }) {
         <p className="text-xs font-bold uppercase tracking-[0.3em] text-brand-red mb-3">
           Season 01
         </p>
+
         <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter text-[var(--text-primary)] leading-tight">
           THE DROP
         </h2>
       </motion.div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
-        {products.map((product, i) => (
-          <ProductCard
-            key={product._id || product.id}
-            product={product}
-            index={i}
-            onQuickBuy={setSelectedProduct}
-          />
-        ))}
-      </div>
+      {/* CARREGANDO */}
+      {productsLoading && (
+        <div className="w-full py-20 flex items-center justify-center">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
+            Carregando produtos...
+          </p>
+        </div>
+      )}
+
+      {/* ERRO DEFINITIVO */}
+      {!productsLoading && productsError && (
+        <div className="w-full py-20 flex flex-col items-center justify-center text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
+            Não foi possível carregar os produtos.
+          </p>
+
+          <button
+            onClick={() => window.location.reload()}
+            className="mt-4 bg-brand-red text-white px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] hover:bg-white hover:text-black transition-colors"
+          >
+            Tentar novamente
+          </button>
+        </div>
+      )}
+
+      {/* PRODUTOS */}
+      {!productsLoading && !productsError && products.length > 0 && (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
+          {products.map((product, i) => (
+            <ProductCard
+              key={product._id || product.id}
+              product={product}
+              index={i}
+              onQuickBuy={setSelectedProduct}
+            />
+          ))}
+        </div>
+      )}
 
       <AnimatePresence>
         {selectedProduct && (
