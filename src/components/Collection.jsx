@@ -234,9 +234,29 @@ export default function Collection({ onCartUpdate }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
-    getProducts({ limit: 8 })
-      .then((r) => setProducts(r.data.products))
-      .catch(() => {});
+  let mounted = true;
+
+  const loadProducts = async () => {
+    try {
+      const response = await getProducts({ limit: 8 });
+
+      if (mounted) {
+        setProducts(response.data.products || []);
+      }
+    } catch (error) {
+      console.error("Erro ao carregar produtos:", error);
+
+      if (mounted) {
+        setProducts([]);
+      }
+    }
+  };
+
+  loadProducts();
+
+  return () => {
+    mounted = false;
+  };
   }, []);
 
   return (
